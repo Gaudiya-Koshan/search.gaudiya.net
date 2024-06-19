@@ -2,121 +2,21 @@
 // Everything will be compared against this table for the purpose of searching
 // which obviously means that the database will need use IAST Unicode characters.
 
-/*
-a
-ā
-i
-ī
-u
-ū
-ṛ
-ṝ
-ḷ
-ḹ
-e
-ai
-o
-au
-ĕ
-ŏ
-æ
-ǣ
-ô
-aṃ
-aḥ
-am̐
-ka
-kha
-ga
-gha
-ṅa
-ca
-cha
-ja
-jha
-ña
-ṭa
-ṭha
-ḍa
-ḍha
-ṇa
-ta
-tha
-da
-dha
-na
-pa
-pha
-ba
-bha
-ma
-ya
-ra
-la
-va
-śa
-ṣa
-sa
-ha
-l̤a
-ḻa
-ṟa
-ṉa
-qa
-k͟ha
-ġa
-za
-r̤a
-r̤ha
-fa
-ẏa
-n̆ga
-n̆ja
-n̆ḍa
-n̆da
-m̆ba
-ka
-kā
-ki
-kī
-ku
-kū
-kṛ
-kṝ
-kḷ
-kḹ
-ke
-kai
-ko
-kau
-kĕ
-kŏ
-kæ
-kǣ
-kô
-kaṃ
-kaḥ
-kam̐
-k
-'
-oṃ
-.
-..
-*/
+// The comments for 'a' below describe what each object is composed of (although the keys are meant to make it self-explanatory).
 
 const conversion_mappings = {
 	a: {
-		key: 1,
-		description: 'short a',
-		iast: 'a',
-		english: ['a'],
-		velthuis: 'a',
-		itrans: 'a',
-		harvard_kyoto: 'a',
-		devanagari: 'अ',
-		bangla: 'অ',
-		oriya: 'ଅ',
-		brahmi: '𑀅'
+		key: 1, // just a numeric key for convenience
+		description: 'short a', // explanation in English for what the character is
+		iast: 'a', // International Alphabet of Sanskrit Transliteration = what our database must use for all fields
+		english: ['a'], // various English spellings that we anticipate the user might type into a search field
+		velthuis: 'a', // the Velthuis system of transliteration is a (tragic) ASCII transliteration scheme, included here in case it's ever needed
+		itrans: 'a', // Indian languages TRANSliteration (ITRANS) is another ASCII transliteration scheme that avoids diacritics
+		harvard_kyoto: 'a', // Harvard-Kyoto Convention is another ASCII system. It is/was predominantly used informally in e-mail.
+		devanagari: 'अ', // Unicode Devanāgarī characters
+		bangla: 'অ', // Unicode Bangla characters
+		oriya: 'ଅ', // Unicode Oriya characters
+		brahmi: '𑀅' // Unicode Brāhmī characters because ... why not?
 	},
 	ā: {
 		key: 2,
@@ -890,7 +790,7 @@ const conversion_mappings = {
 		key: 61,
 		description: 'k͟ha',
 		iast: 'k͟ha',
-		english: ['kha'],
+		english: ['kha', 'ka'],
 		velthuis: '.kha',
 		itrans: '.kha',
 		harvard_kyoto: '.kha',
@@ -1397,9 +1297,105 @@ const conversion_mappings = {
 
 // ----------------------------------------------------------------
 // ----------------------------------------------------------------
-// ----------------------------------------------------------------
-// ----------------------------------------------------------------
-// ----------------------------------------------------------------
-// ----------------------------------------------------------------
-// ----------------------------------------------------------------
-// ----------------------------------------------------------------
+
+/*
+a
+ā
+i
+ī
+u
+ū
+ṛ
+ṝ
+ḷ
+ḹ
+e
+ai
+o
+au
+ĕ
+ŏ
+æ
+ǣ
+ô
+aṃ
+aḥ
+am̐
+ka
+kha
+ga
+gha
+ṅa
+ca
+cha
+ja
+jha
+ña
+ṭa
+ṭha
+ḍa
+ḍha
+ṇa
+ta
+tha
+da
+dha
+na
+pa
+pha
+ba
+bha
+ma
+ya
+ra
+la
+va
+śa
+ṣa
+sa
+ha
+l̤a
+ḻa
+ṟa
+ṉa
+qa
+k͟ha
+ġa
+za
+r̤a
+r̤ha
+fa
+ẏa
+n̆ga
+n̆ja
+n̆ḍa
+n̆da
+m̆ba
+ka
+kā
+ki
+kī
+ku
+kū
+kṛ
+kṝ
+kḷ
+kḹ
+ke
+kai
+ko
+kau
+kĕ
+kŏ
+kæ
+kǣ
+kô
+kaṃ
+kaḥ
+kam̐
+k
+'
+oṃ
+.
+..
+*/
