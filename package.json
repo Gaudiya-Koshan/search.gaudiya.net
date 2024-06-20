@@ -40,6 +40,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@iconify/svelte": "^4.0.2",
     "@supabase/supabase-js": "^2.43.5"
   }
 }

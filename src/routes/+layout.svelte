@@ -9,7 +9,7 @@
 		<!-- App Bar -->
 		<AppBar>
 			<svelte:fragment slot="lead">
-				<strong class="text-xl uppercase">search</strong>
+				<strong class="text-xl uppercase">multi-script search demo</strong>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				<!-- <a
