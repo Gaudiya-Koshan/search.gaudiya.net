@@ -1,4 +1,4 @@
-import { supabase, supabaseComputedColumns } from '$lib/supabaseClient';
+import { supabase } from '$lib/supabaseClient';
 import type { Actions } from './$types.js';
 import { conversion_mappings } from '$lib/conversion/conversion_mappings.js';
 
@@ -21,40 +21,56 @@ export const actions = {
 		if (!searchPhrase) {
 			searchPhrase = '';
 		}
-		const script = formData.get('script')?.toString();
-		console.log('searchPhrase: ', searchPhrase);
-		console.log('script: ', script);
+		let script = formData.get('script')?.toString();
+		if (!script) {
+			script = 'english_plain';
+		}
 
-		const searchResults = await searchSort(searchPhrase);
+		const searchResults = await searchSort(searchPhrase, script);
 		// console.log('searchResults: ', searchResults);
 
 		return searchResults;
 	}
 } satisfies Actions;
 
-const searchSort = async (searchPhrase: string) => {
+const searchSort = async (searchPhrase: string, script: string) => {
 	// a: {
 	// key: 1, // just a numeric key for convenience
 	// description: 'short a', // explanation in English for what the character is
-	// iast: 'a', // International Alphabet of Sanskrit Transliteration = what our database must use for all fields
-	// english: ['a'], // various English spellings that we anticipate the user might type into a search field
-	// velthuis: 'a', // the Velthuis system of transliteration is a (tragic) ASCII transliteration scheme, included here in case it's ever needed
-	// itrans: 'a', // Indian languages TRANSliteration (ITRANS) is another ASCII transliteration scheme that avoids diacritics
-	// harvard_kyoto: 'a', // Harvard-Kyoto Convention is another ASCII system. It is/was predominantly used informally in e-mail.
+	// english_iast: 'a', // International Alphabet of Sanskrit Transliteration = what our database must use for all fields
+	// english_plain: ['a'], // various English spellings that we anticipate the user might type into a search field
+	// english_velthuis: 'a', // the Velthuis system of transliteration is a (tragic) ASCII transliteration scheme, included here in case it's ever needed
+	// english_itrans: 'a', // Indian languages TRANSliteration (ITRANS) is another ASCII transliteration scheme that avoids diacritics
+	// english_harvard_kyoto: 'a', // Harvard-Kyoto Convention is another ASCII system. It is/was predominantly used informally in e-mail.
 	// devanāgarī: 'अ', // Unicode Devanāgarī characters
 	// bāṅlā: 'অ', // Unicode bāṅlā characters
 	// oṛiā: 'ଅ', // Unicode oṛiā characters
 	// brāhmī: '𑀅' // Unicode Brāhmī characters because ... why not?
 	// },
 
+	// Create a new array of transformed key-value pairs
+	const mappedKeys = Object.keys(conversion_mappings).map((iast) => {
+		// @ts-expect-error keys are strings so it spews
+		const value = conversion_mappings[iast][script];
+
+		console.log(value);
+		return { iast, value };
+	});
+
+	console.log('mappedKeys: ', mappedKeys);
+	console.log('searchPhrase: ', searchPhrase);
+	console.log('script: ', script);
+
+	// need to sort out which fields are being searched as well
+	const fields = 'title' + '_' + 'description';
+
 	let searchResults = {};
 	try {
 		const { data, error } = await supabase
 			.from('books')
 			.select()
-			.textSearch('title_description', searchPhrase)
+			.textSearch(fields, searchPhrase)
 			.order('id', { ascending: false });
-		// console.log(data);
 
 		if (data) {
 			searchResults = data;

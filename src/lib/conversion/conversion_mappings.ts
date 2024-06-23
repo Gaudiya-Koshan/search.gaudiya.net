@@ -191,26 +191,26 @@ export const conversion_mappings = {
 		key: 15,
 		description: 'short e breve',
 		english_iast: 'ĕ',
-		english_plain: ['e (short)'],
+		english_plain: ['e'],
 		english_velthuis: 'e',
 		english_itrans: 'e\\',
 		english_harvard_kyoto: 'e\\',
 		devanāgarī: 'ऎ',
-		bāṅlā: '঎',
-		oṛiā: '଎',
+		bāṅlā: null,
+		oṛiā: null,
 		brāhmī: '𑀓'
 	},
 	ŏ: {
 		key: 16,
 		description: 'short o breve',
 		english_iast: 'ŏ',
-		english_plain: ['o (short)'],
+		english_plain: ['o'],
 		english_velthuis: 'o',
 		english_itrans: 'o\\',
 		english_harvard_kyoto: 'o\\',
 		devanāgarī: 'ऒ',
-		bāṅlā: '঒',
-		oṛiā: '଒',
+		bāṅlā: null,
+		oṛiā: null,
 		brāhmī: '𑀔'
 	},
 	æ: {
@@ -588,7 +588,7 @@ export const conversion_mappings = {
 		devanāgarī: 'ब',
 		bāṅlā: 'ব',
 		oṛiā: 'ବ',
-		brāhmī: '𑀩'
+		brāhmī: null
 	},
 	bha: {
 		key: 46,
@@ -666,7 +666,7 @@ export const conversion_mappings = {
 		devanāgarī: 'व',
 		bāṅlā: 'ব',
 		oṛiā: 'ବ',
-		brāhmī: '𑀩'
+		brāhmī: null
 	},
 	śa: {
 		key: 52,
@@ -756,7 +756,7 @@ export const conversion_mappings = {
 		english_itrans: '.ra',
 		english_harvard_kyoto: '.ra',
 		devanāgarī: 'ऱ',
-		bāṅlā: '঱',
+		bāṅlā: null,
 		oṛiā: 'ऱ',
 		brāhmī: '𑀼'
 	},
@@ -769,7 +769,7 @@ export const conversion_mappings = {
 		english_itrans: '.Na',
 		english_harvard_kyoto: '.Na',
 		devanāgarī: 'ऩ',
-		bāṅlā: '঩',
+		bāṅlā: null,
 		oṛiā: 'ऩ',
 		brāhmī: '𑀽'
 	},
@@ -859,10 +859,10 @@ export const conversion_mappings = {
 		english_velthuis: '.fa',
 		english_itrans: '.fa',
 		english_harvard_kyoto: '.fa',
-		devanāgarī: '঺',
-		bāṅlā: '঺',
-		oṛiā: '঺',
-		brāhmī: '𑀩'
+		devanāgarī: null,
+		bāṅlā: null,
+		oṛiā: null,
+		brāhmī: null
 	},
 	ẏa: {
 		key: 67,
@@ -1245,7 +1245,7 @@ export const conversion_mappings = {
 		key: 96,
 		description: 'om',
 		english_iast: 'oṃ',
-		english_plain: ['om'],
+		english_plain: ['om', 'aum'],
 		english_velthuis: 'oM',
 		english_itrans: 'oM',
 		english_harvard_kyoto: 'oM',
