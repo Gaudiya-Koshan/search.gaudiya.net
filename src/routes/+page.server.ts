@@ -49,11 +49,13 @@ const searchSort = async (searchPhrase: string, script: string) => {
 	// },
 
 	// Create a new array of transformed key-value pairs
+	// let dictionary = {}
 	const mappedKeys = Object.keys(conversion_mappings).map((iast) => {
 		// @ts-expect-error keys are strings so it spews
 		const value = conversion_mappings[iast][script];
-
-		console.log(value);
+		if (Array.isArray(value)) {
+			console.log('array');
+		}
 		return { iast, value };
 	});
 
