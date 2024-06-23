@@ -1,13 +1,14 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 	import type { ActionResult } from '@sveltejs/kit';
-	import { applyAction, deserialize } from '$app/forms';
+	import { applyAction, deserialize, enhance } from '$app/forms';
 
-	export let data;
+	// export let data;
 	let resultsData: any;
 
 	let inputData = {
-		searchPhrase: 'Śrī' // 'Circle of Friends' // 'Ṭhākura' // empty this when it goes live
+		searchPhrase: 'Śrī', // 'Circle of Friends' // 'Ṭhākura' // empty this when it goes live
+		script: 'english_plain'
 	};
 
 	const fetchSearchResults = async (event: { currentTarget: EventTarget & HTMLFormElement }) => {
@@ -17,6 +18,7 @@
 			method: 'POST',
 			body: formData
 		});
+		// console.log('response: ', response);
 
 		const result: ActionResult = deserialize(await response.text());
 		if (result.type == 'success') {
@@ -24,7 +26,7 @@
 
 			if (thisData?.books) {
 				resultsData = thisData.books;
-				console.log('books: ', resultsData);
+				// console.log('books: ', resultsData);
 			}
 
 			applyAction(result);
@@ -32,30 +34,131 @@
 	};
 </script>
 
-<div class="container grid-cols-1 w-11/12 m-auto">
-	<div class="basis-1">
-		<div class="search mt-2">
-			<form
-				method="POST"
-				class="flex flex-row items-center mx-2 justify-stretch"
-				action="?/fetchSearchResults"
-				on:submit|preventDefault={fetchSearchResults}
-			>
-				<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
-					<div class="input-group-shim">
-						<Icon icon="line-md:search-filled" width="2em" height="2em" />
-					</div>
-					<input
-						id="search_phrase"
-						name="search_phrase"
-						type="search"
-						bind:value={inputData.searchPhrase}
-						placeholder="Type your search phrase here in either Roman or Indic letters."
-					/>
-					<button class="variant-filled-secondary">Search</button>
+<div class="container w-11/12 m-auto">
+	<div class="form search mt-2">
+		<form
+			method="POST"
+			class="mx-2"
+			action="?/fetchSearchResults"
+			on:submit|preventDefault={fetchSearchResults}
+			use:enhance
+		>
+			<div class="search input-group input-group-divider grid-cols-[auto_1fr_auto] rounded-md">
+				<div class="input-group-shim">
+					<Icon icon="line-md:search-filled" width="2em" height="2em" />
 				</div>
-			</form>
-		</div>
+				<input
+					id="search_phrase"
+					name="search_phrase"
+					type="search"
+					bind:value={inputData.searchPhrase}
+					placeholder="Type your search phrase here in either Roman or Indic letters."
+				/>
+				<button class="variant-filled-secondary">Search</button>
+			</div>
+			<div class="filters">
+				<div class="flex border rounded-md border-primary-500 my-4">
+					<div class="py-3 my-auto px-5 bg-primary-500 text-sm mr-3 text-primary-900">English:</div>
+
+					<label class="flex cursor-pointer m-auto w-max">
+						<input
+							class="my-auto"
+							type="radio"
+							name="script"
+							value="english_plain"
+							bind:group={inputData.script}
+						/>
+						<div class="px-2">No Diacritics</div>
+					</label>
+					<label class="flex cursor-pointer m-auto w-max">
+						<input
+							class="my-auto"
+							type="radio"
+							name="script"
+							value="english_iast"
+							bind:group={inputData.script}
+						/>
+						<div class="title px-2">IAST</div>
+					</label>
+
+					<label class="flex cursor-pointer m-auto w-max">
+						<input
+							class="my-auto"
+							type="radio"
+							name="script"
+							value="english_itrans"
+							bind:group={inputData.script}
+						/>
+						<div class="title px-2">ITRANS</div>
+					</label>
+					<label class="flex cursor-pointer m-auto w-max">
+						<input
+							class="my-auto"
+							type="radio"
+							name="script"
+							value="english_velthius"
+							bind:group={inputData.script}
+						/>
+						<div class="title px-2">Velthius</div>
+					</label>
+
+					<label class="flex cursor-pointer m-auto w-max">
+						<input
+							class="my-auto"
+							type="radio"
+							name="script"
+							value="english_harvard"
+							bind:group={inputData.script}
+						/>
+						<div class="title px-2">Harvard Kyoto</div>
+					</label>
+				</div>
+				<div class="flex border rounded-md border-primary-500 my-4">
+					<div class="py-3 my-auto px-5 bg-primary-500 text-sm mr-3 text-primary-900">Indic:</div>
+
+					<label class="flex cursor-pointer m-auto w-max">
+						<input
+							class="my-auto"
+							type="radio"
+							name="script"
+							value="devanāgarī"
+							bind:group={inputData.script}
+						/>
+						<div class="title px-2">देवनागरी (Devanāgarī)</div>
+					</label>
+					<label class="flex cursor-pointer m-auto w-max">
+						<input
+							class="my-auto"
+							type="radio"
+							name="script"
+							value="oṛiā"
+							bind:group={inputData.script}
+						/>
+						<div class="title px-2">ଓଋଇଆ (Oṛiā)</div>
+					</label>
+					<label class="flex cursor-pointer m-auto w-max">
+						<input
+							class="my-auto"
+							type="radio"
+							name="script"
+							value="bāṅlā"
+							bind:group={inputData.script}
+						/>
+						<div class="title px-2">বাংলা (Bāṅlā)</div>
+					</label>
+					<label class="flex cursor-pointer m-auto w-max">
+						<input
+							class="my-auto"
+							type="radio"
+							name="script"
+							value="brāhmī"
+							bind:group={inputData.script}
+						/>
+						<div class="title px-2">𑀩𑁆𑀭𑀸𑀳𑁆𑀫𑀻 (Brāhmī)</div>
+					</label>
+				</div>
+			</div>
+		</form>
 	</div>
 	<div class="basis-1 my-5 mx-auto">
 		<div class="results">
