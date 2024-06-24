@@ -7,9 +7,24 @@
 	let resultsData: any;
 
 	let inputData = {
-		searchPhrase: 'Sri', //'Śrī', // 'Circle of Friends' // 'Ṭhākura' // empty this when it goes live
+		searchPhrase: '',
 		script: 'english_plain'
 	};
+
+	const chips = {
+		Śrī: 'english_iast',
+		sri: 'english_plain',
+		kṛṣṇa: 'english_iast',
+		Krishna: 'english_plain',
+		caritāmṛta: 'english_iast',
+		Friends: 'english_plain'
+	};
+
+	function chipFill(chipText: string, chipScript: string) {
+		console.log(chipText, chipScript);
+		inputData.searchPhrase = chipText;
+		inputData.script = chipScript;
+	}
 
 	const fetchSearchResults = async (event: { currentTarget: EventTarget & HTMLFormElement }) => {
 		console.log('client called');
@@ -44,19 +59,6 @@
 			action="?/fetchSearchResults"
 			on:submit|preventDefault={fetchSearchResults}
 		>
-			<div class="search input-group input-group-divider grid-cols-[auto_1fr_auto] rounded-md">
-				<div class="input-group-shim">
-					<Icon icon="line-md:search-filled" width="2em" height="2em" />
-				</div>
-				<input
-					id="search_phrase"
-					name="search_phrase"
-					type="search"
-					bind:value={inputData.searchPhrase}
-					placeholder="Type your search phrase here in either Roman or Indic letters."
-				/>
-				<button class="variant-filled-secondary">Search</button>
-			</div>
 			<div class="filters">
 				<div class="flex border rounded-md border-primary-500 my-4">
 					<div class="py-3 my-auto px-5 bg-primary-500 text-sm mr-3 text-primary-900">English:</div>
@@ -159,10 +161,32 @@
 					</label>
 				</div>
 			</div>
+			<div class="search input-group input-group-divider grid-cols-[auto_1fr_auto] rounded-md">
+				<div class="input-group-shim">
+					<Icon icon="line-md:search-filled" width="2em" height="2em" />
+				</div>
+				<input
+					id="search_phrase"
+					name="search_phrase"
+					type="search"
+					bind:value={inputData.searchPhrase}
+					placeholder="Type your search phrase here in either Roman or Indic letters."
+				/>
+				<button class="variant-filled-secondary">Search</button>
+			</div>
+			<div class="chips mt-4">
+				{#each Object.keys(chips) as chipText}
+					<button
+						class="chip mx-2 variant-soft bg-secondary-50 hover:variant-filled"
+						on:click={() => chipFill(chipText, chips[chipText])}
+					>
+						<span>{chipText}</span>
+					</button>
+				{/each}
+			</div>
 		</form>
 	</div>
 	<div class="basis-1 my-5 mx-auto">
-		Śrī, caritāmṛta
 		<div class="results">
 			{#if resultsData}
 				<h1 class="h1 text-primary-500 my-5">results</h1>
