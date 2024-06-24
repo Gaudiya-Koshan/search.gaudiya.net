@@ -17,6 +17,10 @@
 		kṛṣṇa: 'english_iast',
 		Krishna: 'english_plain',
 		caritāmṛta: 'english_iast',
+		Mahābhāva: 'english_iast',
+		prakāśa: 'english_iast',
+		Mahabhava: 'english_plain',
+		// prakasa: 'english_plain',
 		ghanaśyām: 'english_iast',
 		Friends: 'english_plain',
 		ॐ: 'devanāgarī'
@@ -54,13 +58,17 @@
 <div class="container w-11/12 m-auto">
 	<div class="message variant-ghost-surface text-error-500 mt-4 p-3 rounded">
 		<p>
-			<span class="text-primary-500">Stardate 24 Jun 2024:</span> Currently, the only thing working is
-			the 'No Diacritic' and 'IAST' searches. They might even be buggy. The logic is in place for all
-			scripts to work, but my character map is innacurate and the letters and combinations of letters
-			aren't playing nicely with the substitutes. It's not a difficult fix, but I need to spend the time
-			going through each IAST character and making sure the other scripts are accurately matched. Also
-			there are only 13 books in the database so don't expect huge results. Try the presets. They all
-			work fine.
+			<span class="text-primary-500">Stardate 24 Jun 2024:</span> Currently, the only thing (kinda) working
+			is the 'No Diacritic' and 'IAST' searches. They're buggy. It will only replace one diacritic per
+			word at the moment. I had it working earlier then broke it trying to fix another issue. I'll get
+			back to this in the next couple of days.
+		</p>
+		<p>
+			The logic is in place for all scripts to work, but my character map is innacurate and the
+			letters and combinations of letters aren't playing nicely with the substitutes. It's not a
+			difficult fix, but I need to spend the time going through each IAST character and making sure
+			the other scripts are accurately matched. Also there are only 13 books in the database so
+			don't expect huge results. Try the presets. They all work fine.
 		</p>
 		<p class="flex justify-center text-primary-500">ys, Ekendra</p>
 	</div>
@@ -225,3 +233,9 @@
 		</div>
 	</div>
 </div>
+
+<style lang="postcss">
+	p {
+		margin-bottom: 10px;
+	}
+</style>
