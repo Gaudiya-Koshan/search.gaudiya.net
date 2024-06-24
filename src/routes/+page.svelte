@@ -16,6 +16,8 @@
 		sri: 'english_plain',
 		kṛṣṇa: 'english_iast',
 		Krishna: 'english_plain',
+		Mahābhāva: 'english_iast',
+		prakāśa: 'english_iast',
 		caritāmṛta: 'english_iast',
 		ghanaśyām: 'english_iast',
 		Friends: 'english_plain',
