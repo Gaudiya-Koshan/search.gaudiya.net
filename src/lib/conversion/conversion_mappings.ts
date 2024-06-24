@@ -1245,7 +1245,7 @@ export const conversion_mappings = {
 		key: 96,
 		description: 'om',
 		english_iast: 'oṃ',
-		english_plain: ['om', 'aum'],
+		english_plain: ['om', 'aum', 'omkara'],
 		english_velthuis: 'oM',
 		english_itrans: 'oM',
 		english_harvard_kyoto: 'oM',

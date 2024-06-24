@@ -17,7 +17,9 @@
 		kṛṣṇa: 'english_iast',
 		Krishna: 'english_plain',
 		caritāmṛta: 'english_iast',
-		Friends: 'english_plain'
+		ghanaśyām: 'english_iast',
+		Friends: 'english_plain',
+		ॐ: 'devanāgarī'
 	};
 
 	function chipFill(chipText: string, chipScript: string) {
@@ -52,6 +54,15 @@
 </script>
 
 <div class="container w-11/12 m-auto">
+	<div class="message variant-ghost-surface text-error-500 mt-4 p-3 rounded">
+		<p>
+			Currently, the only thing working is the 'No Diacritic' and 'IAST' searches. They might even
+			be buggy. The logic is in place for all scripts to work, but my character map is innacurate
+			and the letters and combinations of letters aren't playing nicely with the substitutes. It's
+			not a difficult fix, but I need to spend the time going through each IAST character and making
+			sure the other scripts are accurately matched.
+		</p>
+	</div>
 	<div class="form search mt-2">
 		<form
 			method="POST"
@@ -175,9 +186,10 @@
 				<button class="variant-filled-secondary">Search</button>
 			</div>
 			<div class="chips mt-4">
+				Or select from these presets:
 				{#each Object.keys(chips) as chipText}
 					<button
-						class="chip mx-2 variant-soft bg-secondary-50 hover:variant-filled"
+						class="chip mx-2 variant-filled-primary hover:variant-filled-secondary"
 						on:click={() => chipFill(chipText, chips[chipText])}
 					>
 						<span>{chipText}</span>
