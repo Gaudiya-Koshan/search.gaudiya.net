@@ -7,11 +7,13 @@
 	let resultsData: any;
 
 	let inputData = {
-		searchPhrase: 'Śrī', // 'Circle of Friends' // 'Ṭhākura' // empty this when it goes live
+		searchPhrase: 'Sri', //'Śrī', // 'Circle of Friends' // 'Ṭhākura' // empty this when it goes live
 		script: 'english_plain'
 	};
 
 	const fetchSearchResults = async (event: { currentTarget: EventTarget & HTMLFormElement }) => {
+		console.log('client called');
+
 		const formData = new FormData(event.currentTarget);
 
 		const response = await fetch(event.currentTarget.action, {
@@ -41,7 +43,6 @@
 			class="mx-2"
 			action="?/fetchSearchResults"
 			on:submit|preventDefault={fetchSearchResults}
-			use:enhance
 		>
 			<div class="search input-group input-group-divider grid-cols-[auto_1fr_auto] rounded-md">
 				<div class="input-group-shim">
@@ -161,6 +162,7 @@
 		</form>
 	</div>
 	<div class="basis-1 my-5 mx-auto">
+		Śrī, caritāmṛta
 		<div class="results">
 			{#if resultsData}
 				<h1 class="h1 text-primary-500 my-5">results</h1>

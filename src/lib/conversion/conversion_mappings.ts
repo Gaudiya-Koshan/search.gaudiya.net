@@ -1284,14 +1284,27 @@ export const conversion_mappings = {
 		key: 99,
 		description: 'palatal ṣ',
 		english_iast: 'ṣ',
-		english_plain: ['s'],
-		english_velthuis: '.za',
-		english_itrans: '.za',
-		english_harvard_kyoto: '.za',
-		devanāgarī: 'ष',
-		bāṅlā: 'ষ',
-		oṛiā: 'ଷ',
-		brāhmī: '𑀰'
+		english_plain: ['sh', 's'],
+		english_velthuis: '.s',
+		english_itrans: 'Sh',
+		english_harvard_kyoto: 'S',
+		devanāgarī: 'ष्',
+		bāṅlā: 'ষ্',
+		oṛiā: 'ଷ୍',
+		brāhmī: '𑀱𑁆'
+	},
+	ś: {
+		key: 100,
+		description: 'palatal ś',
+		english_iast: 'ś',
+		english_plain: ['sh', 's'],
+		english_velthuis: '"s',
+		english_itrans: 'sh',
+		english_harvard_kyoto: 'z',
+		devanāgarī: 'श्',
+		bāṅlā: 'শ্',
+		oṛiā: 'ଶ୍',
+		brāhmī: '𑀰𑁆'
 	}
 };
 

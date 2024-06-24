@@ -15,9 +15,11 @@ import { conversion_mappings } from '$lib/conversion/conversion_mappings.js';
 
 export const actions = {
 	fetchSearchResults: async ({ request }) => {
+		console.log('called');
+
 		const formData = await request.formData();
 
-		let searchPhrase = formData.get('search_phrase')?.toString().trim();
+		let searchPhrase = formData.get('search_phrase')?.toString().trim().toLowerCase();
 		if (!searchPhrase) {
 			searchPhrase = '';
 		}
@@ -34,44 +36,35 @@ export const actions = {
 } satisfies Actions;
 
 const searchSort = async (searchPhrase: string, script: string) => {
-	// a: {
-	// key: 1, // just a numeric key for convenience
-	// description: 'short a', // explanation in English for what the character is
-	// english_iast: 'a', // International Alphabet of Sanskrit Transliteration = what our database must use for all fields
-	// english_plain: ['a'], // various English spellings that we anticipate the user might type into a search field
-	// english_velthuis: 'a', // the Velthuis system of transliteration is a (tragic) ASCII transliteration scheme, included here in case it's ever needed
-	// english_itrans: 'a', // Indian languages TRANSliteration (ITRANS) is another ASCII transliteration scheme that avoids diacritics
-	// english_harvard_kyoto: 'a', // Harvard-Kyoto Convention is another ASCII system. It is/was predominantly used informally in e-mail.
-	// devanāgarī: 'अ', // Unicode Devanāgarī characters
-	// bāṅlā: 'অ', // Unicode bāṅlā characters
-	// oṛiā: 'ଅ', // Unicode oṛiā characters
-	// brāhmī: '𑀅' // Unicode Brāhmī characters because ... why not?
-	// },
+	//
+	let query = '';
+	let phrases = [];
+	if (script == 'english_iast') {
+		phrases = [searchPhrase];
+	} else {
+		// Create a new array of transformed key-value pairs
 
-	// Create a new array of transformed key-value pairs
-	// let dictionary = {}
-	const mappedKeys = Object.keys(conversion_mappings).map((iast) => {
-		// @ts-expect-error keys are strings so it spews
-		const value = conversion_mappings[iast][script];
-		if (Array.isArray(value)) {
-			console.log('array');
-		}
-		return { iast, value };
-	});
-
-	console.log('mappedKeys: ', mappedKeys);
-	console.log('searchPhrase: ', searchPhrase);
-	console.log('script: ', script);
+		phrases = await getSearchPhrases(searchPhrase, script);
+	}
 
 	// need to sort out which fields are being searched as well
 	const fields = 'title' + '_' + 'description';
+
+	// form search query from generated and user input phrases
+	query = phrases.map((phrase) => `${fields}.fts.${phrase}`).join(',');
+
+	// console.log('mappedKeys: ', mappedKeys);
+	console.log('searchPhrase: ', searchPhrase);
+	console.log('script: ', script);
+	console.log('query: ', query);
 
 	let searchResults = {};
 	try {
 		const { data, error } = await supabase
 			.from('books')
 			.select()
-			.textSearch(fields, searchPhrase)
+			// .textSearch(fields, searchPhrase)
+			.or(query)
 			.order('id', { ascending: false });
 
 		if (data) {
@@ -88,4 +81,59 @@ const searchSort = async (searchPhrase: string, script: string) => {
 		console.log(error);
 		throw error;
 	}
+};
+
+const getSearchPhrases = async (searchPhrase: string, script: string) => {
+	//
+	const thisDict = {};
+
+	Object.keys(conversion_mappings).map((iast) => {
+		// @ts-expect-error keys are variables so it spews
+		const value = conversion_mappings[iast][script];
+		if (value) {
+			if (Array.isArray(value)) {
+				// console.log(value);
+				value.forEach((sub) => {
+					if (sub in thisDict) {
+						// @ts-expect-error keys are variables so it spews
+						thisDict[sub].push(iast);
+					} else {
+						// @ts-expect-error keys are variables so it spews
+						thisDict[sub] = [iast];
+					}
+				});
+			} else {
+				// @ts-expect-error keys are variables so it spews
+				thisDict[value] = [iast];
+			}
+		}
+	});
+	// console.log(thisDict);
+
+	const phrases = [searchPhrase];
+
+	Object.keys(thisDict).map((searchChar) => {
+		// @ts-expect-error keys are variables so it spews
+		const replaceArray = thisDict[searchChar];
+		// console.log(replaceArray);
+		replaceArray.forEach((sub: string) => {
+			// console.log(sub);
+			const regex = new RegExp(searchChar, 'gi');
+
+			phrases.forEach((existingPhrase: string) => {
+				const checkPhrase = existingPhrase.replaceAll(regex, sub);
+				// check if phrase is already on array of phrases, if not add it
+				// also check that it doesn't have those annoying .. for some reason
+				if (!checkPhrase.includes('..')) {
+					if (!phrases.includes(checkPhrase)) {
+						phrases.push(checkPhrase);
+					}
+				}
+			});
+		});
+	});
+
+	console.log(phrases);
+
+	return phrases;
 };
