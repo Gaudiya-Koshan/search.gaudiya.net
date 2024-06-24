@@ -68,7 +68,7 @@
 			letters and combinations of letters aren't playing nicely with the substitutes. It's not a
 			difficult fix, but I need to spend the time going through each IAST character and making sure
 			the other scripts are accurately matched. Also there are only 13 books in the database so
-			don't expect huge results. Try the presets. They all work fine.
+			don't expect huge results. Try the presets. Most of them work fine.
 		</p>
 		<p class="flex justify-center text-primary-500">ys, Ekendra</p>
 	</div>
