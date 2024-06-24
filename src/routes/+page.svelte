@@ -16,8 +16,6 @@
 		sri: 'english_plain',
 		kṛṣṇa: 'english_iast',
 		Krishna: 'english_plain',
-		Mahābhāva: 'english_iast',
-		prakāśa: 'english_iast',
 		caritāmṛta: 'english_iast',
 		ghanaśyām: 'english_iast',
 		Friends: 'english_plain',
@@ -60,7 +58,9 @@
 			the 'No Diacritic' and 'IAST' searches. They might even be buggy. The logic is in place for all
 			scripts to work, but my character map is innacurate and the letters and combinations of letters
 			aren't playing nicely with the substitutes. It's not a difficult fix, but I need to spend the time
-			going through each IAST character and making sure the other scripts are accurately matched.
+			going through each IAST character and making sure the other scripts are accurately matched. Also
+			there are only 13 books in the database so don't expect huge results. Try the presets. They all
+			work fine.
 		</p>
 		<p class="flex justify-center text-primary-500">ys, Ekendra</p>
 	</div>
