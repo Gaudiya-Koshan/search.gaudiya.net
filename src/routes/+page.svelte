@@ -23,14 +23,12 @@
 	};
 
 	function chipFill(chipText: string, chipScript: string) {
-		console.log(chipText, chipScript);
+		// console.log(chipText, chipScript);
 		inputData.searchPhrase = chipText;
 		inputData.script = chipScript;
 	}
 
 	const fetchSearchResults = async (event: { currentTarget: EventTarget & HTMLFormElement }) => {
-		console.log('client called');
-
 		const formData = new FormData(event.currentTarget);
 
 		const response = await fetch(event.currentTarget.action, {
@@ -56,12 +54,13 @@
 <div class="container w-11/12 m-auto">
 	<div class="message variant-ghost-surface text-error-500 mt-4 p-3 rounded">
 		<p>
-			Currently, the only thing working is the 'No Diacritic' and 'IAST' searches. They might even
-			be buggy. The logic is in place for all scripts to work, but my character map is innacurate
-			and the letters and combinations of letters aren't playing nicely with the substitutes. It's
-			not a difficult fix, but I need to spend the time going through each IAST character and making
-			sure the other scripts are accurately matched.
+			<span class="text-primary-500">Stardate 24 Jun 2024:</span> Currently, the only thing working is
+			the 'No Diacritic' and 'IAST' searches. They might even be buggy. The logic is in place for all
+			scripts to work, but my character map is innacurate and the letters and combinations of letters
+			aren't playing nicely with the substitutes. It's not a difficult fix, but I need to spend the time
+			going through each IAST character and making sure the other scripts are accurately matched.
 		</p>
+		<p class="flex justify-center text-primary-500">ys, Ekendra</p>
 	</div>
 	<div class="form search mt-2">
 		<form
@@ -181,7 +180,7 @@
 					name="search_phrase"
 					type="search"
 					bind:value={inputData.searchPhrase}
-					placeholder="Type your search phrase here in either Roman or Indic letters."
+					placeholder="Select the appropriate script for your search phrase, then type it here in either Roman or (soon to be) Indic letters."
 				/>
 				<button class="variant-filled-secondary">Search</button>
 			</div>
